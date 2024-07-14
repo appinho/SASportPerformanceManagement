@@ -1,6 +1,6 @@
 import sqlite3
 
-import mysql.connector
+# import mysql.connector
 import pandas as pd
 
 from database.config import db_config, db_path
@@ -12,8 +12,8 @@ def get_dataframe_from_db(db_type="sqlite3"):
         print(f"Use {db_type}")
         if db_type == "sqlite3":
             conn = sqlite3.connect(db_path)
-        elif db_type == "mysql":
-            conn = mysql.connector.connect(**db_config)
+        # elif db_type == "mysql":
+        #     conn = mysql.connector.connect(**db_config)
         else:
             raise NotImplementedError(f"Unknown database type: {db_type}")
         print("Database connection successful")
