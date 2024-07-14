@@ -9,7 +9,13 @@ Garmin data capture, integration, visualization, and analytics
 - Back end: Python
 - Server: Pythonanywhere
 
-## Resources
+## Commands
+
+```
+pip freeze > requirements.txt
+flask shell
+```
 
 ## Setup
 * https://www.youtube.com/watch?v=5jbdkOlf4cY&ab_channel=PrettyPrinted
+* https://prettyprinted.com/courses/flask-sqlalchemy-basics
