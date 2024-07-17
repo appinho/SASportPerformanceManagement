@@ -20,6 +20,9 @@ def test_mysql_connection():
         datapoints = cursor.fetchall()
         print(f"Datapoints {datapoints}") 
         assert len(datapoints) > 1
+
+        cursor.close()
+        conn.close()
     except mysql.connector.Error as err:
         print(f"Error connecting to MySQL: {err}")
         assert False
