@@ -7,6 +7,7 @@ from config import MYSQL_CONFIG
 
 def get_db_connection():
     # Connect to MySQL database
+    print(f"Connect for user: {MYSQL_CONFIG['user']}")
     try:
         conn = mysql.connector.connect(**MYSQL_CONFIG)
         return conn
@@ -37,11 +38,11 @@ def plot():
     try:
         conn = get_db_connection()
         if conn is None:
-            raise mysql.connector.Error(f"No database connection could be established!")
+            raise mysql.connector.Error
         
         data = get_data(conn)
         if conn is None:
-            raise mysql.connector.Error(f"No datacould be retrieved!")
+            raise mysql.connector.Error
     except mysql.connector.Error as err:
         print(f"Error connecting to MySQL: {err}")
         return render_template('error.html', error_message=str(err))
