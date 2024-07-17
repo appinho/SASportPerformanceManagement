@@ -1,8 +1,9 @@
 # import plotly.express as px
 import plotly.graph_objects as go
-
+import logging
 
 def plot_df(df):
+    logging.info("Plot df...")
     df_running = df[df["sport"] == "Running"].dropna()
     df_cycling = df[df["sport"] == "Cycling"].dropna()
     # fig = px.line(df_running, x='date', y='value', title='VO2Max Running')
@@ -31,5 +32,5 @@ def plot_df(df):
     fig.update_layout(
         title="VO2 Max", xaxis_title="Date", yaxis_title="VO2 Max (ml/min/kg)"
     )
-    print("Plotly created successfully")
+    logging.info("Plot df successfully")
     return fig

@@ -3,16 +3,15 @@ from app.main import bp
 from app.utils import plot_to_html
 import mysql.connector
 from config import MYSQL_CONFIG
-
+import logging
 
 def get_db_connection():
     # Connect to MySQL database
-    print(f"Connect for user: {MYSQL_CONFIG['user']}")
     try:
         conn = mysql.connector.connect(**MYSQL_CONFIG)
         return conn
     except mysql.connector.Error as err:
-        print(f"Error connecting to MySQL: {err}")
+        logging.error(f"Error connecting to MySQL: {err}")
         return None
 
 def get_data(conn):
@@ -25,7 +24,7 @@ def get_data(conn):
         return data
 
     except mysql.connector.Error as err:
-        print(f"Error getting data from MySQL: {err}")
+        logging.error(f"Error getting data from MySQL: {err}")
         return None
 
 @bp.route('/')
@@ -36,14 +35,15 @@ def index():
 def plot():
 
     try:
-        conn = get_db_connection()
+        logging.warning(f"Connect for user: {MYSQL_CONFIG['user']}")
+        conn = mysql.connector.connect(**MYSQL_CONFIG)
         cursor = conn.cursor()
         cursor.execute('SELECT x, y FROM plot_data')
         data = cursor.fetchall()
         cursor.close()
         conn.close()
     except mysql.connector.Error as err:
-        print(f"Error connecting to MySQL: {err}")
+        logging.error(f"Error connecting to MySQL: {err}")
         return render_template('error.html', error_message=str(err))
     
 
