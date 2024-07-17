@@ -1,0 +1,111 @@
+/* style.css */
+
+/*
+Basic reset for consistent appearance across browsers 
+
+The * selector resets the margin and padding for all elements
+to zero and sets the box-sizing to border-box for consistent
+rendering across browsers.
+*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+Style for the body 
+
+Sets the font, line height, background color, text color, 
+and padding for the body.
+*/
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f481;
+    color: #007a11;
+    padding: 20px;
+}
+
+/* 
+Header styling 
+
+Styles the header with a dark background, white text, padding, and bottom margin.
+Centers the text and adjusts the header's h1 element.
+*/
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+/* 
+Navigation menu styling 
+
+Adds margin to the navigation.
+Styles the links with padding, background color, border-radius, and hover effects.
+*/
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 5px 10px;
+    background: #555;
+    border-radius: 4px;
+}
+
+nav a:hover {
+    background: #444;
+}
+
+/*
+Main content styling 
+
+Styles the main content area with a white background, 
+padding, border-radius, and a subtle box shadow.
+Ensures that h2 elements have no top margin.
+
+*/
+main {
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+/*
+Styling for images (like the plot)
+
+Ensures images (like the generated plot) are responsive 
+and centered with appropriate margins.
+*/
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+}
+
+/*
+Additional styling for paragraphs and other elements
+
+Adds bottom margin to paragraphs for spacing.
+*/
+p {
+    margin-bottom: 20px;
+}
