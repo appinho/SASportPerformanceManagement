@@ -1,0 +1,15 @@
+-- create_tables.sql
+
+CREATE TABLE Sport (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE VO2Max (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATE NOT NULL,
+    value FLOAT NOT NULL,
+    sport_id INT,
+    modified DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sport_id) REFERENCES Sport(id)
+);

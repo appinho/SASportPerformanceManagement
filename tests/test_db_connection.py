@@ -2,7 +2,7 @@ import mysql.connector
 from config import MYSQL_CONFIG
 import logging
 
-def test_mysql_connection():
+def test_db_connection():
 
     assert MYSQL_CONFIG['user'] == "appinho"
 
@@ -28,4 +28,4 @@ def test_mysql_connection():
         logging.error(f"Error connecting to MySQL: {err}")
         assert False
 
-test_mysql_connection()
+test_db_connection()

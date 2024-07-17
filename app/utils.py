@@ -37,19 +37,25 @@
 
 import matplotlib
 import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter, MonthLocator
 from io import BytesIO
 import base64
 matplotlib.use('Agg')
 
-def plot_vo2max_to_html(x_points, y_points):
+def plot_vo2max_to_html(x_points, y_running, y_cycling):
     
 
     # Create a plot
     fig, ax = plt.subplots()
-    ax.plot(x_points, y_points)
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
+    ax.plot(x_points, y_running, label='Running', color='red')
+    ax.plot(x_points, y_cycling, label='Cycling', color='green')
+    ax.xaxis.set_major_locator(MonthLocator(bymonthday=1))
+    ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+    ax.set_xlabel('Date')
+    ax.set_ylabel('VO2Max')
     ax.set_title('VO2Max')
+    ax.legend()
+    ax.grid(True)
 
     # Save plot to BytesIO object
     img = BytesIO()
@@ -62,7 +68,7 @@ def plot_vo2max_to_html(x_points, y_points):
     # Return plot as HTML image tag
     return f'<img src="data:image/png;base64,{plot_url}" />'
 
-def plot_dummy_to_html(x_points, y_points):
+def plot_dummy_data_to_html(x_points, y_points):
     
 
     # Create a plot
@@ -70,7 +76,7 @@ def plot_dummy_to_html(x_points, y_points):
     ax.plot(x_points, y_points)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_title('VO2Max')
+    ax.set_title('Dummy data')
 
     # Save plot to BytesIO object
     img = BytesIO()
