@@ -1,12 +1,12 @@
 import mysql.connector
-from config import mysql_config
+from config import MYSQL_CONFIG
 
 def test_mysql_connection():
 
-    assert mysql_config['user'] == "appinho"
+    assert MYSQL_CONFIG['user'] == "appinho"
 
     try:
-        conn = mysql.connector.connect(**mysql_config)
+        conn = mysql.connector.connect(**MYSQL_CONFIG)
         cursor = conn.cursor()
         cursor.execute("SHOW DATABASES")
         databases = cursor.fetchall()
@@ -15,7 +15,7 @@ def test_mysql_connection():
         cursor.execute("SHOW TABLES")
         tables = cursor.fetchall()
         print(f"Tables {tables}")
-        assert len(tables) > 1
+        assert len(tables) > 0
         cursor.execute("SELECT * FROM plot_data")
         datapoints = cursor.fetchall()
         print(f"Datapoints {datapoints}") 

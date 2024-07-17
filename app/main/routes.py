@@ -2,7 +2,7 @@ from flask import render_template
 from app.main import bp
 from app.utils import plot_to_html
 import mysql.connector
-from config import mysql_config
+from config import MYSQL_CONFIG
 
 
 @bp.route('/')
@@ -13,7 +13,7 @@ def index():
 def plot():
     # Connect to MySQL database
     try:
-        conn = mysql.connector.connect(**mysql_config)
+        conn = mysql.connector.connect(**MYSQL_CONFIG)
         cursor = conn.cursor()
 
         # Fetch x and y points from MySQL

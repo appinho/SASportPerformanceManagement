@@ -7,7 +7,7 @@ load_dotenv()
 
 
 # Database connection configuration
-mysql_config = {
+MYSQL_CONFIG = {
     'host': os.getenv('MYSQL_HOST'),
     'user': os.getenv('MYSQL_USER'),
     'password': os.getenv('MYSQL_PASSWORD'),
