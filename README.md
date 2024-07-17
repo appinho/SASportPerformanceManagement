@@ -15,6 +15,8 @@ http://appinho.pythonanywhere.com/
 ```
 pip freeze > requirements.txt
 flask shell
+du -sh .virtualenvs/env/lib/python3.10/site-packages/* | sort -hr | head
+du -sh venv/lib/python3.10/site-packages/* | sort -hr | head
 ```
 
 ## Setup

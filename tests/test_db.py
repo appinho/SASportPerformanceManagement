@@ -2,6 +2,8 @@ import mysql.connector
 from config import MYSQL_CONFIG
 import logging
 
+logging.basicConfig(level=logging.INFO)
+
 def test_db_connection():
 
     assert MYSQL_CONFIG['user'] == "appinho"

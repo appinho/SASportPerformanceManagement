@@ -1,5 +1,5 @@
 from flask import Flask
-from app.main import bp as main_bp
+from app.main import bp
 # from flask_migrate import Migrate
 
 # migrate = Migrate()
@@ -12,6 +12,6 @@ def create_app():
     # migrate.init_app(app, db)
     
     
-    app.register_blueprint(main_bp)
+    app.register_blueprint(bp)
     
     return app
