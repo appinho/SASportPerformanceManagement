@@ -2,19 +2,8 @@ from flask import render_template
 from app.main import bp
 from app.utils import plot_to_html
 import mysql.connector
-import os
-from dotenv import load_dotenv
+from config import mysql_config
 
-# Load environment variables from .env file
-load_dotenv()
-
-# MySQL connection configuration using environment variables
-mysql_config = {
-    'host': os.getenv('MYSQL_HOST'),
-    'user': os.getenv('MYSQL_USER'),
-    'password': os.getenv('MYSQL_PASSWORD'),
-    'database': os.getenv('MYSQL_DATABASE'),
-}
 
 @bp.route('/')
 def index():
