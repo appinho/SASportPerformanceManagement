@@ -15,6 +15,7 @@ http://appinho.pythonanywhere.com/
 ```
 pip freeze > requirements.txt
 flask shell
+source .virtualenvs/env/bin/activate
 du -sh .virtualenvs/env/lib/python3.10/site-packages/* | sort -hr | head
 du -sh venv/lib/python3.10/site-packages/* | sort -hr | head
 ```
@@ -24,6 +25,7 @@ du -sh venv/lib/python3.10/site-packages/* | sort -hr | head
 ```
 python3.10 -m venv venv
 mkvirtualenv env --python="/usr/bin/python3.10"
+
 ```
 
 
