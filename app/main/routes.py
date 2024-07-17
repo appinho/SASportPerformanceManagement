@@ -37,12 +37,11 @@ def plot():
 
     try:
         conn = get_db_connection()
-        if conn is None:
-            raise mysql.connector.Error
-        
-        data = get_data(conn)
-        if conn is None:
-            raise mysql.connector.Error
+        cursor = conn.cursor()
+        cursor.execute('SELECT x, y FROM plot_data')
+        data = cursor.fetchall()
+        cursor.close()
+        conn.close()
     except mysql.connector.Error as err:
         print(f"Error connecting to MySQL: {err}")
         return render_template('error.html', error_message=str(err))
