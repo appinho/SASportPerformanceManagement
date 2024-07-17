@@ -34,15 +34,18 @@ def index():
 @bp.route('/plot')
 def plot():
 
-    conn = get_db_connection()
-    if conn is None:
-        print(f"No database connection could be established!")
-        return render_template('error.html')
+    try:
+        conn = get_db_connection()
+        if conn is None:
+            raise mysql.connector.Error(f"No database connection could be established!")
+        
+        data = get_data(conn)
+        if conn is None:
+            raise mysql.connector.Error(f"No datacould be retrieved!")
+    except mysql.connector.Error as err:
+        print(f"Error connecting to MySQL: {err}")
+        return render_template('error.html', error_message=str(err))
     
-    data = get_data(conn)
-    if conn is None:
-        print(f"No data could be retrieved!")
-        return render_template('error.html')
 
     # Convert MySQL data to lists of x and y points
     x_points = [row[0] for row in data]
