@@ -1,6 +1,6 @@
 from flask import render_template
 from app.main import bp
-from app.utils import plot_to_html
+from app.utils import plot_dummy_to_html
 import mysql.connector
 from config import MYSQL_CONFIG
 import logging
@@ -52,5 +52,5 @@ def plot():
     y_points = [row[1] for row in data]
 
     # Generate plot HTML
-    plot_html = plot_to_html(x_points, y_points)
+    plot_html = plot_dummy_to_html(x_points, y_points)
     return render_template('plot.html', plot_html=plot_html)

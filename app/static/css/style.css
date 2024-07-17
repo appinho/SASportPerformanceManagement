@@ -23,7 +23,7 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #f4f4f481;
-    color: #007a11;
+    color: #193097;
     padding: 20px;
 }
 
@@ -34,7 +34,7 @@ Styles the header with a dark background, white text, padding, and bottom margin
 Centers the text and adjusts the header's h1 element.
 */
 header {
-    background: #333;
+    background: #2850b4;
     color: #fff;
     padding: 10px 0;
     text-align: center;
@@ -61,12 +61,12 @@ nav a {
     text-decoration: none;
     margin: 0 10px;
     padding: 5px 10px;
-    background: #555;
+    background: #3b85b0;
     border-radius: 4px;
 }
 
 nav a:hover {
-    background: #444;
+    background: #0a72a3;
 }
 
 /*
@@ -78,7 +78,7 @@ Ensures that h2 elements have no top margin.
 
 */
 main {
-    background: #fff;
+    background: #e7e5e5a6;
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);

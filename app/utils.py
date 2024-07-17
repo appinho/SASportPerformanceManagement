@@ -9,13 +9,13 @@
 # import plotly.graph_objs as go
 # import plotly.io as pio
 
-# def plot_to_html():
+# def plot_dummy_to_html():
 #     fig = go.Figure(data=[go.Bar(x=[1, 2, 3], y=[1, 3, 2])])
 #     plot_html = pio.to_html(fig, full_html=False)
 #     return plot_html
 
 
-# def plot_to_html():
+# def plot_dummy_to_html():
 #     # Example data
 #     tips = sns.load_dataset('tips')
     
@@ -41,7 +41,7 @@ from io import BytesIO
 import base64
 matplotlib.use('Agg')
 
-def plot_to_html(x_points, y_points):
+def plot_vo2max_to_html(x_points, y_points):
     
 
     # Create a plot
@@ -49,7 +49,28 @@ def plot_to_html(x_points, y_points):
     ax.plot(x_points, y_points)
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.set_title('Plot from MySQL Data')
+    ax.set_title('VO2Max')
+
+    # Save plot to BytesIO object
+    img = BytesIO()
+    fig.savefig(img, format='png')
+    img.seek(0)
+
+    # Encode plot to base64
+    plot_url = base64.b64encode(img.getvalue()).decode('utf8')
+
+    # Return plot as HTML image tag
+    return f'<img src="data:image/png;base64,{plot_url}" />'
+
+def plot_dummy_to_html(x_points, y_points):
+    
+
+    # Create a plot
+    fig, ax = plt.subplots()
+    ax.plot(x_points, y_points)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_title('VO2Max')
 
     # Save plot to BytesIO object
     img = BytesIO()
