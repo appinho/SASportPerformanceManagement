@@ -1,6 +1,20 @@
 from flask import render_template
 from app.main import bp
 from app.utils import plot_to_html
+import mysql.connector
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# MySQL connection configuration using environment variables
+mysql_config = {
+    'host': os.getenv('MYSQL_HOST'),
+    'user': os.getenv('MYSQL_USER'),
+    'password': os.getenv('MYSQL_PASSWORD'),
+    'database': os.getenv('MYSQL_DATABASE'),
+}
 
 @bp.route('/')
 def index():
@@ -8,5 +22,28 @@ def index():
 
 @bp.route('/plot')
 def plot():
-    plot_html = plot_to_html()
-    return render_template('plot.html', plot_html=plot_html)
+    # Connect to MySQL database
+    try:
+        conn = mysql.connector.connect(**mysql_config)
+        cursor = conn.cursor()
+
+        # Fetch x and y points from MySQL
+        cursor.execute('SELECT x, y FROM plot_data')
+        data = cursor.fetchall()
+
+        # Close connection
+        cursor.close()
+        conn.close()
+
+        # Convert MySQL data to lists of x and y points
+        x_points = [row[0] for row in data]
+        y_points = [row[1] for row in data]
+
+        # Generate plot HTML
+        plot_html = plot_to_html(x_points, y_points)
+
+        return render_template('plot.html', plot_html=plot_html)
+    except mysql.connector.Error as err:
+        print(f"Error connecting to MySQL: {err}")
+        # Handle error gracefully, maybe render an error page
+        return render_template('error.html')

@@ -1,5 +1,11 @@
 # Utility functions data processing or plotting
 
+
+# import seaborn as sns
+# import matplotlib.pyplot as plt
+# from io import BytesIO
+# import base64
+
 # import plotly.graph_objs as go
 # import plotly.io as pio
 
@@ -8,29 +14,50 @@
 #     plot_html = pio.to_html(fig, full_html=False)
 #     return plot_html
 
-import matplotlib
-matplotlib.use('Agg')
 
-import seaborn as sns
+# def plot_to_html():
+#     # Example data
+#     tips = sns.load_dataset('tips')
+    
+#     # Create a seaborn plot
+#     fig, ax = plt.subplots()
+#     sns.scatterplot(data=tips, x='total_bill', y='tip', ax=ax)
+    
+#     # Save the plot to a BytesIO object
+#     img = BytesIO()
+#     fig.savefig(img, format='png')
+#     img.seek(0)
+    
+#     # Encode the image to base64
+#     plot_url = base64.b64encode(img.getvalue()).decode('utf8')
+    
+#     # Return the plot as an HTML image tag
+#     return f'<img src="data:image/png;base64,{plot_url}" />'
+
+
+import matplotlib
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+matplotlib.use('Agg')
 
-def plot_to_html():
-    # Example data
-    tips = sns.load_dataset('tips')
+def plot_to_html(x_points, y_points):
     
-    # Create a seaborn plot
+
+    # Create a plot
     fig, ax = plt.subplots()
-    sns.scatterplot(data=tips, x='total_bill', y='tip', ax=ax)
-    
-    # Save the plot to a BytesIO object
+    ax.plot(x_points, y_points)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_title('Plot from MySQL Data')
+
+    # Save plot to BytesIO object
     img = BytesIO()
     fig.savefig(img, format='png')
     img.seek(0)
-    
-    # Encode the image to base64
+
+    # Encode plot to base64
     plot_url = base64.b64encode(img.getvalue()).decode('utf8')
-    
-    # Return the plot as an HTML image tag
+
+    # Return plot as HTML image tag
     return f'<img src="data:image/png;base64,{plot_url}" />'
