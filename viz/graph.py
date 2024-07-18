@@ -1,6 +1,8 @@
 # import plotly.express as px
-import plotly.graph_objects as go
 import logging
+
+import plotly.graph_objects as go
+
 
 def plot_df(df):
     logging.info("Plot df...")

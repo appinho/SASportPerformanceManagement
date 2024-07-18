@@ -1,7 +1,9 @@
+import logging
+
 import mysql.connector
+
 from config import MYSQL_CONFIG
 
-import logging
 
 def get_db_connection():
     # Connect to MySQL database
