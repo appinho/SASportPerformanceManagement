@@ -3,7 +3,9 @@ import datetime
 import logging
 import os
 
-from garminconnect import Garmin
+import requests
+from garminconnect import Garmin, GarminConnectAuthenticationError
+from garth.exc import GarthHTTPError
 
 from database.write import write_vo2max
 
@@ -12,12 +14,6 @@ SPORTS = ["cycling", "running"]
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--cred",
-        "-c",
-        default=False,
-        help="Use credentials over env variable",
-    )
     parser.add_argument(
         "--sports",
         "-s",
@@ -45,7 +41,8 @@ def convert_args(args):
     else:
         sports = ",".join(args.sports)
         for sport in sports:
-            if sport not in sports:
+            print(sport, sport in sports)
+            if sport not in SPORTS:
                 raise TypeError(f"Unsupported sport: {sport}")
 
     if args.init is None:
@@ -67,31 +64,57 @@ def get_mfa():
     return input("MFA one-time code: ")
 
 
-def connect(use_cred=False):
+def connect():
     logging.info("Logging into Garmin API...")
+    tokenstore = os.getenv("GARMINTOKENS") or "~/.garminconnect"
+    tokenstore_base64 = os.getenv("GARMINTOKENS_BASE64") or "~/.garminconnect_base64"
 
     try:
-        if use_cred:
-            print("Use credentials")
-            email = os.getenv("GARMIN_EMAIL")
-            password = os.getenv("GARMIN_PASSWORD")
-            print(email)
-            api = Garmin(
+        print(
+            f"Trying to login to Garmin Connect using token data from directory '{tokenstore}'...\n"
+        )
+        garmin = Garmin()
+        garmin.login(tokenstore)
+    except (FileNotFoundError, GarthHTTPError, GarminConnectAuthenticationError):
+        print(
+            "Login tokens not present, login with your Garmin Connect credentials to generate them.\n"
+            f"They will be stored in '{tokenstore}' for future use.\n"
+        )
+        try:
+            email = os.getenv("GARMIN_EMAIL") or None
+            password = os.getenv("GARMIN_PASSWORD") or None
+            if email is None:
+                print("Please provide GARMIN_EMAIL")
+                return None
+            if password is None:
+                print("Please provide GARMIN_PASSWORD")
+                return None
+            garmin = Garmin(
                 email=email, password=password, is_cn=False, prompt_mfa=get_mfa
             )
-        else:
-            print("Use tokenstore")
-            tokenstore = os.getenv("GARMINTOKENS") or "~/.garminconnect"
-            print(tokenstore)
-            api = Garmin()
-            api.login(tokenstore)
-
-        logging.info("Logged into Garmin API.")
-        print("Logged in")
-        return api
-    except Exception as e:
-        logging.error(f"Couldn't log in to Garmin API: {e}")
-        return None
+            garmin.login()
+            # Save Oauth1 and Oauth2 token files to directory for next login
+            garmin.garth.dump(tokenstore)
+            print(
+                f"Oauth tokens stored in '{tokenstore}' directory for future use. (first method)\n"
+            )
+            # Encode Oauth1 and Oauth2 tokens to base64 string and safe to file for next login (alternative way)
+            token_base64 = garmin.garth.dumps()
+            dir_path = os.path.expanduser(tokenstore_base64)
+            with open(dir_path, "w") as token_file:
+                token_file.write(token_base64)
+            print(
+                f"Oauth tokens encoded as base64 string and saved to '{dir_path}' file for future use. (second method)\n"
+            )
+        except (
+            FileNotFoundError,
+            GarthHTTPError,
+            GarminConnectAuthenticationError,
+            requests.exceptions.HTTPError,
+        ) as err:
+            logging.error(err)
+            return None
+    return garmin
 
 
 def get_vo2_max(api, current_date, sports, vo2_max):
@@ -136,7 +159,7 @@ def get_vo2_max(api, current_date, sports, vo2_max):
 def download(args, verbose=False):
 
     sports, current, end = convert_args(args)
-    api = connect(args.cred)
+    api = connect()
 
     if api is None:
         return
