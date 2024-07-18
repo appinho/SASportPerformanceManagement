@@ -14,14 +14,15 @@ def test_import():
 test_import()
 
 
-def test_api_connection():
+def test_connect():
 
     try:
         api = connect()
+        print("GarminConnect connected successfully")
     except Exception as err:
         print(f"Error connecting to Garmin API: {err}")
         assert False
     assert api is not None
 
 
-test_api_connection()
+test_connect()

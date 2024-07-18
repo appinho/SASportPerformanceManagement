@@ -89,6 +89,7 @@ def connect():
             if password is None:
                 print("Please provide GARMIN_PASSWORD")
                 return None
+            print(f"Login for {email}")
             garmin = Garmin(
                 email=email, password=password, is_cn=False, prompt_mfa=get_mfa
             )
