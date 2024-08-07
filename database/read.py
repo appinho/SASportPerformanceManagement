@@ -5,12 +5,21 @@ import mysql.connector
 
 from database.connect import get_db_connection
 
-dummy_data = [
-    (datetime(2024, 4, 1).date(), 20, 30),
-    (datetime(2024, 5, 1).date(), 23, 29),
-    (datetime(2024, 6, 1).date(), 27, 33),
-    (datetime(2024, 7, 1).date(), 26, 34),
+dummy_data = {}
+dummy_data["Running"] = {}
+dummy_data["Running"]["x"] = [
+    datetime(2024, 4, 1).date(),
+    datetime(2024, 5, 1).date(),
+    datetime(2024, 6, 1).date(),
 ]
+dummy_data["Running"]["y"] = [50, 52, 55]
+dummy_data["Cycling"] = {}
+dummy_data["Cycling"]["x"] = [
+    datetime(2024, 5, 1).date(),
+    datetime(2024, 6, 1).date(),
+    datetime(2024, 7, 1).date(),
+]
+dummy_data["Cycling"]["y"] = [54, 51, 56]
 
 
 def get_vo2max():
@@ -24,11 +33,25 @@ def get_vo2max():
         return dummy_data
     try:
         cursor = conn.cursor()
-        cursor.execute("SELECT x, y FROM plot_data")
-        data = cursor.fetchall()
+        cursor.execute(
+            "SELECT v.date, v.value, s.name FROM VO2Max v INNER JOIN Sport s ON v.sport_id = s.id"
+        )
+        entries = cursor.fetchall()
+        vo2maxs = {}
+        for entry in entries:
+            date = entry[0]
+            vo2max = entry[1]
+            sport = entry[2]
+            if sport not in vo2maxs:
+                vo2maxs[sport] = {}
+                vo2maxs[sport]["x"] = []
+                vo2maxs[sport]["y"] = []
+            vo2maxs[sport]["x"].append(date)
+            vo2maxs[sport]["y"].append(vo2max)
+
         cursor.close()
         conn.close()
-        return data
+        return vo2maxs
     except mysql.connector.Error as err:
         logging.error(f"Error getting dummy data: {err}")
         return dummy_data

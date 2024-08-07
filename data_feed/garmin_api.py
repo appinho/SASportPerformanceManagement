@@ -135,8 +135,10 @@ def get_vo2_max(api, current_date, sports, vo2_max):
     for sport in sports:
         if sport == "running":
             key = "generic"
+            sport_id = 1
         else:
             key = sport
+            sport_id = 2
         if key not in most_recent_vo2_max:
             print(f"No '{key}' for {current_date} in mostRecentVO2Max:")
             continue
@@ -153,6 +155,10 @@ def get_vo2_max(api, current_date, sports, vo2_max):
                     vo2_max[sport] = []
                 vo2_max[sport].append({"date": vo2_max_date, "value": vo2_max_value})
                 print(vo2_max)
+                with open("insert_vo2max.sql", "a") as fh:
+                    fh.write(
+                        f"INSERT VO2Max (date, value, sport_id) VALUES ('{vo2_max_date}', {vo2_max_value}, {sport_id});\n"
+                    )
         except Exception as e:
             logging.warning(f"Couldn't extract VO2Max and date for {sport}. {e}")
 
@@ -167,6 +173,8 @@ def download(args, verbose=False):
 
     # Main loop
     vo2_max = {}
+    if os.path.isfile("insert_vo2max.sql"):
+        os.remove("insert_vo2max.sql")
     while current < end:
         if verbose:
             print(f"Process date: {current}")

@@ -19,13 +19,6 @@ def plot():
     except Exception as err:
         return render_template("error.html", error_message=str(err))
 
-    # Convert MySQL data to lists of x and y points
-    x_points = [row[0] for row in data]
-    y_running = [row[1] for row in data]
-    y_cycling = [row[2] for row in data]
-
     # Generate plot HTML
-    plot_html = plot_vo2max_to_html(x_points, y_running, y_cycling)
-    return render_template(
-        "plot.html", plot_html=plot_html
-    )  #     return render_template('plot.html', plot_html=plot_html)#     plot_html = plot_vo2max_to_html(x_points, y_running, y_cycling)
+    plot_html = plot_vo2max_to_html(data)
+    return render_template("plot.html", plot_html=plot_html)

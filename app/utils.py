@@ -44,13 +44,17 @@ from matplotlib.dates import DateFormatter, MonthLocator
 
 matplotlib.use("Agg")
 
+colors = {}
+colors["Running"] = "red"
+colors["Cycling"] = "green"
+colors["Swimming"] = "blue"
 
-def plot_vo2max_to_html(x_points, y_running, y_cycling):
 
+def plot_vo2max_to_html(vo2maxs):
     # Create a plot
     fig, ax = plt.subplots()
-    ax.plot(x_points, y_running, label="Running", color="red")
-    ax.plot(x_points, y_cycling, label="Cycling", color="green")
+    for sport, vo2max in vo2maxs.items():
+        ax.plot(vo2max["x"], vo2max["y"], label=sport, color=colors[sport])
     ax.xaxis.set_major_locator(MonthLocator(bymonthday=1))
     ax.xaxis.set_major_formatter(DateFormatter("%Y-%m-%d"))
     ax.set_xlabel("Date")
