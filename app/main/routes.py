@@ -4,7 +4,7 @@ from flask import render_template
 
 from app.main import bp
 from app.utils import plot_vo2max_to_html
-from database.retrieve import get_vo2max
+from database.read import get_vo2max
 
 
 @bp.route("/")
@@ -14,7 +14,6 @@ def index():
 
 @bp.route("/plot")
 def plot():
-
     try:
         data = get_vo2max()
     except Exception as err:
@@ -27,4 +26,6 @@ def plot():
 
     # Generate plot HTML
     plot_html = plot_vo2max_to_html(x_points, y_running, y_cycling)
-    return render_template("plot.html", plot_html=plot_html)
+    return render_template(
+        "plot.html", plot_html=plot_html
+    )  #     return render_template('plot.html', plot_html=plot_html)#     plot_html = plot_vo2max_to_html(x_points, y_running, y_cycling)
