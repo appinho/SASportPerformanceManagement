@@ -34,7 +34,7 @@ def get_vo2max():
     try:
         cursor = conn.cursor()
         cursor.execute(
-            "SELECT v.date, v.value, s.name FROM VO2Max v INNER JOIN Sport s ON v.sport_id = s.id"
+            "SELECT v.date, v.value, s.name FROM VO2Max v INNER JOIN Sport s ON v.sport_id = s.id ORDER BY v.date"
         )
         entries = cursor.fetchall()
         vo2maxs = {}

@@ -183,7 +183,7 @@ def download(args, verbose=False):
         current += datetime.timedelta(days=1)
 
     print(vo2_max)
-    write_vo2max(vo2_max)
+    # write_vo2max(vo2_max)
 
 
 def main():
