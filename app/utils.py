@@ -137,8 +137,8 @@ def plot_interactive(vo2maxs):
     # Save plot to BytesIO object
     img = BytesIO()
     # fig.savefig(img, format="png")
-    if not os.path.exists("images"):
-        os.mkdir("images")
+    # if not os.path.exists("images"):
+    #     os.mkdir("images")
 
     fig.write_image(img)
 
