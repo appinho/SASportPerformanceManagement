@@ -42,7 +42,7 @@ def plot_interactive():
         if sport in data:
             df = data[sport].copy()
             if date_filter == 'this_year':
-                start_date = datetime(datetime.now().year, 1, 1)
+                start_date = datetime(datetime.now().year, 1, 1).date()
                 end_date = datetime.now().date()
             elif date_filter == 'last_4_weeks':
                 end_date = datetime.now().date()
