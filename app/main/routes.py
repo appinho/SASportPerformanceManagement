@@ -50,7 +50,8 @@ def plot_interactive():
             else:
                 start_date = df['date'].min()
                 end_date = df['date'].max()
-
+            start_date = start_date.date()
+            end_date = end_date.date()
             df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
             dfs[sport] = df
     plot_html = plot_vo2max_to_html(dfs, date_filter)
