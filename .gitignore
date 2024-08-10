@@ -1,5 +1,8 @@
 venv/
+dev/
 __pycache__/
 .flaskenv
 .env
 *.sql
+app_minimal.py
+templates
