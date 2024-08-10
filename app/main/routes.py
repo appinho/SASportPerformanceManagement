@@ -43,15 +43,13 @@ def plot_interactive():
             df = data[sport].copy()
             if date_filter == 'this_year':
                 start_date = datetime(datetime.now().year, 1, 1)
-                end_date = datetime.now()
+                end_date = datetime.now().date()
             elif date_filter == 'last_4_weeks':
-                end_date = datetime.now()
+                end_date = datetime.now().date()
                 start_date = end_date - timedelta(weeks=4)
             else:
                 start_date = df['date'].min()
                 end_date = df['date'].max()
-            start_date = start_date.date()
-            end_date = end_date.date()
             df = df[(df['date'] >= start_date) & (df['date'] <= end_date)]
             dfs[sport] = df
     plot_html = plot_vo2max_to_html(dfs, date_filter)
