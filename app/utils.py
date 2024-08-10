@@ -40,7 +40,6 @@ from io import BytesIO
 
 import matplotlib
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go
 from matplotlib.dates import DateFormatter, WeekdayLocator
 
 matplotlib.use("Agg")
@@ -97,55 +96,55 @@ def plot_dummy_data_to_html(x_points, y_points):
     # Return plot as HTML image tag
     return f'<img src="data:image/png;base64,{plot_url}" />'
 
-def plot_interactive(vo2maxs):
+# def plot_interactive(vo2maxs):
+#   import plotly.graph_objects as go
+#     # Create figure
+#     fig = go.Figure()
 
-    # Create figure
-    fig = go.Figure()
+#     for sport, vo2max in vo2maxs.items():
+#         fig.add_trace(
+#             go.Scatter(x=list(vo2max["x"]), y=list(vo2max["y"]), text=sport, fillcolor=colors[sport], name=sport))
 
-    for sport, vo2max in vo2maxs.items():
-        fig.add_trace(
-            go.Scatter(x=list(vo2max["x"]), y=list(vo2max["y"]), text=sport, fillcolor=colors[sport], name=sport))
+#     # Set title
+#     fig.update_layout(
+#         title_text="V02Max"
+#     )
 
-    # Set title
-    fig.update_layout(
-        title_text="V02Max"
-    )
+#     # Add range slider
+#     fig.update_layout(
+#         xaxis=dict(
+#             rangeselector=dict(
+#                 buttons=list([
+#                     dict(count=1,
+#                         label="1m",
+#                         step="month",
+#                         stepmode="backward"),
+#                     dict(count=1,
+#                         label="YTD",
+#                         step="year",
+#                         stepmode="todate"),
+#                 ])
+#             ),
+#             rangeslider=dict(
+#                 visible=True
+#             ),
+#             type="date"
+#         )
+#     )
 
-    # Add range slider
-    fig.update_layout(
-        xaxis=dict(
-            rangeselector=dict(
-                buttons=list([
-                    dict(count=1,
-                        label="1m",
-                        step="month",
-                        stepmode="backward"),
-                    dict(count=1,
-                        label="YTD",
-                        step="year",
-                        stepmode="todate"),
-                ])
-            ),
-            rangeslider=dict(
-                visible=True
-            ),
-            type="date"
-        )
-    )
+    # fig.show()
+    # # Save plot to BytesIO object
+    # img = BytesIO()
+    # # fig.savefig(img, format="png")
+    # # if not os.path.exists("images"):
+    # #     os.mkdir("images")
 
-    fig.show()
-    # Save plot to BytesIO object
-    img = BytesIO()
-    # fig.savefig(img, format="png")
-    # if not os.path.exists("images"):
-    #     os.mkdir("images")
+    # fig.write_image(img)
 
-    fig.write_image(img)
-
-    img.seek(0)
+    # img.seek(0)
 
     # Encode plot to base64
-    plot_url = base64.b64encode(img.getvalue()).decode("utf8")
+    # plot_url = base64.b64encode(img.getvalue()).decode("utf8")
 
     # Return plot as HTML image tag
-    return f'<img src="data:image/png;base64,{plot_url}" />'
+    # return f'<img src="data:image/png;base64,{plot_url}" />'

@@ -24,8 +24,10 @@ du -sh venv/lib/python3.10/site-packages/* | sort -hr | head
 
 ```
 python3.10 -m venv venv
-mkvirtualenv env --python="/usr/bin/python3.10"
+source venv/bin/activate
+pip freeze > requirements.txt
 
+mkvirtualenv env --python="/usr/bin/python3.10"
 ```
 
 

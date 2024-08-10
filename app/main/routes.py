@@ -3,7 +3,7 @@
 from flask import render_template
 
 from app.main import bp
-from app.utils import plot_interactive, plot_vo2max_to_html
+from app.utils import plot_vo2max_to_html
 from database.read import get_vo2max
 
 
@@ -20,5 +20,5 @@ def plot():
         return render_template("error.html", error_message=str(err))
 
     # Generate plot HTML
-    plot_html = plot_interactive(data)
+    plot_html = plot_vo2max_to_html(data)
     return render_template("plot.html", plot_html=plot_html)
