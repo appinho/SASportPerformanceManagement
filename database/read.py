@@ -27,14 +27,16 @@ def get_vo2max():
         vo2maxs = {}
         cursor = conn.cursor()
         for sport_name, sport_id in sports.items():
-            cursor.execute(
-                f"SELECT v.date, v.value FROM VO2Max v WHERE sport_id = {sport_id} ORDER BY v.date"
-            )
+            query = f"SELECT v.date, v.value FROM VO2Max v WHERE sport_id = {sport_id} ORDER BY v.date"
+            print(f"{query}")
+            cursor.execute(query)
             rows = cursor.fetchall()
+            print(f"{rows}")
             columns = [desc[0] for desc in cursor.description]
 
             # Convert to DataFrame
             df = pd.DataFrame(rows, columns=columns)
+            print(df)
             vo2maxs[sport_name] = df
 
         cursor.close()
