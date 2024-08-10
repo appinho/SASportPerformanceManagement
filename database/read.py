@@ -52,7 +52,7 @@ def get_sports():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT id, name FROM Sports")
+        cursor.execute("SELECT id, name FROM Sport")
         data = cursor.fetchall()
         sports = {d[1]: d[0] for d in data}
         cursor.close()
