@@ -131,7 +131,9 @@ def get_vo2_max(api, current_date, sports, vo2_max):
         logging.warning(f"No 'mostRecentVO2Max' for {current_date} in training status")
         return
     most_recent_vo2_max = training_status["mostRecentVO2Max"]
-
+    if most_recent_vo2_max is None:
+        logging.warning(f"mostRecentVO2Max is None for {current_date}")
+        return
     for sport in sports:
         if sport == "running":
             key = "generic"

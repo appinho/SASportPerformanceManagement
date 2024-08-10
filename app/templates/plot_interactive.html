@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>VO2 Max</h2>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<form method="get" action="/plot_interactive">
+    <label for="sport">Select Sports:</label>
+    <select name="sport" id="sport" multiple>
+        <option value="Running" {% if 'Running' in sports %}selected{% endif %}>Running</option>
+        <option value="Cycling" {% if 'Cycling' in sports %}selected{% endif %}>Cycling</option>
+    </select>
+
+    <button type="submit" name="filter" value="all" {% if date_filter == 'all' %}class="active"{% endif %}>Show All Time</button>
+    <button type="submit" name="filter" value="this_year" {% if date_filter == 'this_year' %}class="active"{% endif %}>This Year</button>
+    <button type="submit" name="filter" value="last_4_weeks" {% if date_filter == 'last_4_weeks' %}class="active"{% endif %}>Last 4 Weeks</button>
+</form>
+
+
+<!-- <p>This is a dynamically generated Seaborn plot:</p> -->
+{{ plot_html|safe }}
+{% endblock %}
+

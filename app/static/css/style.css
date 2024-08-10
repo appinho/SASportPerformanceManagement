@@ -1,7 +1,7 @@
 /* style.css */
 
 /*
-Basic reset for consistent appearance across browsers 
+Basic reset for consistent appearance across browsers
 
 The * selector resets the margin and padding for all elements
 to zero and sets the box-sizing to border-box for consistent
@@ -14,9 +14,9 @@ rendering across browsers.
 }
 
 /*
-Style for the body 
+Style for the body
 
-Sets the font, line height, background color, text color, 
+Sets the font, line height, background color, text color,
 and padding for the body.
 */
 body {
@@ -27,8 +27,8 @@ body {
     padding: 20px;
 }
 
-/* 
-Header styling 
+/*
+Header styling
 
 Styles the header with a dark background, white text, padding, and bottom margin.
 Centers the text and adjusts the header's h1 element.
@@ -46,8 +46,8 @@ header h1 {
     font-size: 2em;
 }
 
-/* 
-Navigation menu styling 
+/*
+Navigation menu styling
 
 Adds margin to the navigation.
 Styles the links with padding, background color, border-radius, and hover effects.
@@ -70,9 +70,9 @@ nav a:hover {
 }
 
 /*
-Main content styling 
+Main content styling
 
-Styles the main content area with a white background, 
+Styles the main content area with a white background,
 padding, border-radius, and a subtle box shadow.
 Ensures that h2 elements have no top margin.
 
@@ -88,10 +88,63 @@ h2 {
     margin-top: 0;
 }
 
+/* Button Styles */
+button {
+    padding: 10px 15px;
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 16px; /* Font size */
+    color: #fff; /* White text color */
+    background-color: #87CEEB; /* Sky blue background */
+    margin-right: 10px; /* Space between buttons */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+/* Button Hover Effect */
+button:hover {
+    background-color: #0056b3; /* Dark blue background on hover */
+}
+
+/* Button Active State */
+button.active {
+    background-color: #003d7a; /* Even darker blue when selected */
+}
+
+/* Disabled Button State */
+button:disabled {
+    background-color: #ccc; /* Grey background for disabled buttons */
+    color: #666; /* Grey text color for disabled buttons */
+    cursor: not-allowed; /* Not-allowed cursor */
+}
+
+/* Additional Styling */
+form {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+select {
+    padding: 10px;
+    border: 2px solid #ddd; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #fff; /* White background */
+    font-size: 16px; /* Font size */
+    color: #333; /* Text color */
+    cursor: pointer; /* Pointer cursor */
+    margin-right: 10px;
+}
+
+select:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none; /* Remove default focus outline */
+}
+
+
 /*
 Styling for images (like the plot)
 
-Ensures images (like the generated plot) are responsive 
+Ensures images (like the generated plot) are responsive
 and centered with appropriate margins.
 */
 img {
